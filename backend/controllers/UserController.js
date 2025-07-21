@@ -19,7 +19,7 @@ export function createUser(req, res){
       ()=>(
         res.json(
           {
-            message: "User created successfully"
+            message: "User created successfully."
           }
         )
       )
@@ -27,7 +27,7 @@ export function createUser(req, res){
       ()=>{
         res.json(
           {
-            message: "Failed to created successfully"
+            message: "Failed to created successfully."
           }
         )
       }
