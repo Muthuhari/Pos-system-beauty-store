@@ -4,11 +4,12 @@ import Student from "./models/student.js";
 import studentsRouter from "./routes/studentsRouter.js";
 import usersRouter from "./routes/usersRouter.js";
 import jwt from "jsonwebtoken";
+import productRouter from "./routes/productRouter.js";
 const app =express()
 app.use(express.json());
 
 app.use(
-    (req,res,next)=>{
+    (req,res,next)=>{ 
 
         let token = req.header("Authorization")
 
@@ -45,6 +46,7 @@ mongoose.connect(connectionString).then(
 )
 app.use("/students",  studentsRouter);
 app.use("/users",  usersRouter );
+app.use("/products",  productRouter);
 
 //app.get("/",
 //  (req, res)=>{
@@ -102,5 +104,5 @@ app.use("/users",  usersRouter );
 //}
 
 app.listen(5000, () =>{
-  console.log("Server is started")
+  console.log("Server is running on 5000 port")
 })
