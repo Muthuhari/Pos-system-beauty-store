@@ -65,3 +65,13 @@ export function loginUser(req, res) {
     res.status(500).json({ message: "Server error", error: err });
   });
 }
+
+export  function isAdmin(req){
+  if(req.user == null){
+    return false
+  }
+  if(req.user.role != "admin"){
+    return false
+  }
+  return true 
+}
