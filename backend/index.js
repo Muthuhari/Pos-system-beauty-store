@@ -5,18 +5,24 @@ import studentsRouter from "./routes/studentsRouter.js";
 import usersRouter from "./routes/usersRouter.js";
 import jwt from "jsonwebtoken";
 import productRouter from "./routes/productRouter.js";
-const app =express()
-app.use(express.json());
+import cors from "cors";
+import dotenv from "dotenv";
+
+dotenv.config();
+
+const app = express()
+app.use(cors())
+
+app.use(express.json())
 
 app.use(
-    (req,res,next)=>{ 
+    (req,res,next)=>{
 
         let token = req.header("Authorization")
 
         if(token != null){
             token = token.replace("Bearer ","")
-             //console.log("Received token:", token); // Print the token
-            jwt.verify(token,"jwt-secret",
+            jwt.verify(token, process.env.JWT_SECRET,
                 (err, decoded)=>{
                     if(decoded == null){
                         res.json({
@@ -30,23 +36,26 @@ app.use(
             )
 
         }
-        next()// aapu token eka hari nm yanna oni thanata pass karanawa
+        next()
     }
 )
 
-const connectionString = "mongodb+srv://admin:1234@cluster0.xrmsned.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+const connectionString = process.env.MONGO_URI
+
+
 mongoose.connect(connectionString).then(
-  ()=>{
-    console.log("Database connected")
-  }
+    ()=>{
+        console.log("Database connected Successfully")
+    }
 ).catch(
-  ()=>{
-    console.log("Database connection failed") 
-  }
+    ()=>{
+        console.log("Database connection failed")
+    }
 )
-app.use("/students",  studentsRouter);
-app.use("/users",  usersRouter );
-app.use("/products",  productRouter);
+
+app.use("/api/students",  studentsRouter);
+app.use("/api/users",  usersRouter );
+app.use("/api/products",  productRouter);
 
 //app.get("/",
 //  (req, res)=>{
