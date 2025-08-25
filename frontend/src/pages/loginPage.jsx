@@ -26,6 +26,7 @@ export default function LoginPage() {
 			console.error("Login failed:", e);
             //alert("Login failed. Please check your credentials.");
             toast.error("Login failed. Please check your credentials.");
+            //we use toast to show alerts
 		}
 	}
 
