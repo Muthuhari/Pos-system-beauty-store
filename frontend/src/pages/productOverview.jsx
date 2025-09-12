@@ -1,9 +1,10 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Loader } from "../components/loader";
 import ImageSlider from "../components/imageSlider";
+import { addToCart } from "../utils/cart";
 
 export default function ProductOverview() {
 	const params = useParams();
@@ -58,8 +59,20 @@ export default function ProductOverview() {
                             <p className="text-lg text-accent font-semibold">LKR {product.price.toFixed(2)}</p>
                         }
                         <div className="w-full h-[40px] flex gap-4 mt-[60px]">
-                            <button className="w-[50%] h-full bg-accent text-white font-semibold hover:bg-accent/80">Add to Cart</button>
-                            <button className="w-[50%] h-full border border-accent text-accent font-semibold hover:bg-accent hover:text-white">Buy Now</button>
+                            <button className="w-[50%] h-full bg-accent text-white font-semibold hover:bg-accent/80"
+							onClick={()=>{
+								addToCart(product,1)
+								toast.success("Added to cart")
+							}}>Add to Cart</button>
+                            <Link to="/checkout" state={[{
+								image : product.images[0],
+								productID : product.productID,
+								name : product.name,
+								price : product.price,
+								labelledPrice : product.labelledPrice,
+								quantity : 1
+							}]} className="w-[50%] text-center h-full border border-accent text-accent font-semibold hover:bg-accent hover:text-white"
+							>Buy Now</Link>
                         </div>
 
 					</div>
