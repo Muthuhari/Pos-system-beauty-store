@@ -25,14 +25,15 @@ export default function ProductOverview() {
 	}, []);
 
 	return (
-		<div className="w-full h-[calc(100vh-100px)] text-secondary">
+		<div className="w-full  lg:h-[calc(100vh-100px)] text-secondary bg-primary">
 			{status == "loading" && <Loader />}
 			{status == "success" && (
-				<div className="w-full h-full flex">
-					<div className="w-[50%] h-full flex justify-center items-center">
+				<div className="w-full  flex flex-col lg:flex-row p-10">
+					<h1 className="text-2xl font-bold text-center lg:hidden">{product.name}</h1>
+					<div className=" w-full lg:w-[50%]  h-full flex justify-center items-center">
                         <ImageSlider images={product.images}/>
                     </div>
-					<div className="w-[50%] h-full flex flex-col  items-center gap-4 p-10">
+					<div className="w-full lg:w-[50%]   h-full flex flex-col bg-primary  items-center gap-4 p-10">
                         <span className="">{product.productID}</span>
 						<h1 className="text-2xl font-bold text-center">{product.name}
                             {
@@ -63,7 +64,7 @@ export default function ProductOverview() {
 							onClick={()=>{
 								addToCart(product,1)
 								toast.success("Added to cart")
-							}}>Add to Cart</button>
+							}}>Add to Cart</button> 
                             <Link to="/checkout" state={[{
 								image : product.images[0],
 								productID : product.productID,
@@ -71,7 +72,7 @@ export default function ProductOverview() {
 								price : product.price,
 								labelledPrice : product.labelledPrice,
 								quantity : 1
-							}]} className="w-[50%] text-center h-full border border-accent text-accent font-semibold hover:bg-accent hover:text-white"
+							}]} className="w-[50%] flex justify-center items-center text-center h-full border border-accent text-accent font-semibold hover:bg-accent hover:text-white"
 							>Buy Now</Link>
                         </div>
 
