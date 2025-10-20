@@ -34,9 +34,10 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
-  image: {
-    type: String,
-    default: "https://www.gravatar.com/avatar/"}
+  image : {
+            type : String,
+            default : "/user.png"
+        }
   
 })
 
